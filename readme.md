@@ -1,6 +1,6 @@
 ## R Lesson
 
-**Author:** Phil Domeier
+**Authors:** Phil Domeier, Sabine Spath
 
 **Dependencies:** dplyer, ggplot2
 
