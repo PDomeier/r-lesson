@@ -1,0 +1,76 @@
+---
+title: "Gapminder_analysis"
+author: "Phil Domeier"
+date: "1/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+getwd()
+```
+
+
+
+## Gather Data
+
+```{r}
+download.file(url = "https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder_data.csv", destfile = "data/gapminder_data.csv")
+gapminder <- read.csv("data/gapminder_data.csv")
+```
+
+
+```{r}
+head(gapminder)
+```
+
+## Plotting some data
+
+```{r}
+library(ggplot2)
+```
+
+### How does life expectency change with GDP per capita?
+```{r}
+ggplot(data = gapminder, mapping = aes(x=gdpPercap, y = lifeExp)) + 
+  geom_point(size = 1, alpha = 0.25) + 
+  scale_x_log10() +
+  geom_smooth(method = "lm", size = 1.5)
+```
+
+### How does life expectancy change per year?
+
+```{r}
+ggplot(data = gapminder, mapping = aes(x=year, y=lifeExp, by=country)) + 
+  geom_line(mapping = aes (color=continent)) +
+  geom_point()
+```
+```{r}
+ggplot(data = gapminder, mapping = aes(x=year, y=lifeExp, by=continent)) +
+  stat_smooth(mapping = aes (color = continent))
+```
+
+### How does life Expectancy change per year in the americas
+
+```{r}
+americas <- gapminder[gapminder$continent=="Americas", ]
+ggplot(data=americas, mapping = aes(x=year, y=lifeExp)) + 
+  geom_line(mapping = aes (color = country))
+```
+
+
+```{r}
+americas <- gapminder[gapminder$continent=="Americas", ]
+lifeExp_plot <- ggplot(data=americas, mapping = aes(x=year, y=lifeExp)) + 
+                  geom_line() +
+                  facet_wrap(~country) +
+                  theme(axis.text.x = element_text(angle=90))
+lifeExp_plot
+```
+
+```{r}
+ggsave(plot=lifeExp_plot, filename = "lifeExp.png")
+```

@@ -1,0 +1,77 @@
+---
+title: "Analysis of Experiment"
+author: "Phil Domeier"
+date: "1/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+experiment <- read.csv(file = "data/experiment.csv")
+```
+
+```{r}
+experiment$protein_names
+experiment$intensity + 1.
+paste("Protein name:", experiment$protein_names)
+```
+
+```{r}
+experiment$intensity + experiment$intensity
+experiment$protein_names + experiment$intensity
+```
+
+```{r}
+c(1, 2, 'f')
+```
+
+```{r}
+list(3.14, TRUE, "banana")
+list_example<- list(title = "Numbers", numbers = c(1, 2, 3), data_exists = TRUE)
+```
+
+```{r}
+fruits <- c("apple", "apple", "banana", "grape", "grape")
+factor_fruits <- factor(fruits)
+# This will put your fruit names into a factor to save memory and allow for R to look for something based on a number rather than a text variable. 
+```
+
+```{r}
+mydata<- c("case", "control", "case", "control")
+factor_mydata<- factor(mydata, levels = c("control", "case"))
+```
+
+```{r}
+# Adding a new colun called replicate  to an existing list called experiment
+replicate <- c(1, 2, 1)
+experiment <- cbind(experiment, replicate)
+```
+
+```{r}
+# Adding a new row to an existing table
+
+# Need to add protein names as levels to avoid an error becuase the type of vector does not match unless you tell it that this character function could be a level. 
+
+levels(experiment$protein_names) <- c(levels(experiment$protein_names), "FOXO3")
+
+# Generation of a new protein row name at this level
+
+new_protein <- list(protein_names="FOXO3",
+                    intensity=1.5,
+                    in_membrane=0,
+                    replicate=2
+                    )
+
+# Using the rbind function to make a new row with the new protein. 
+
+experiment <- rbind(experiment, new_protein)
+```
+
+```{r}
+# Getting rid of a row from my list by calling the fourth row with a minus sign in front of it. 
+experiment[,-4]
+
+```
