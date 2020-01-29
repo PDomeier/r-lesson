@@ -2,7 +2,7 @@
 
 **Authors:** Phil Domeier, Sabine Spath
 
-**Dependencies:** dplyer, ggplot2
+**Dependencies:** dplyr, ggplot2
 
 **Date:** January 28th, 2020
 
